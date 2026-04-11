@@ -1,4 +1,3 @@
-// src/main.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
@@ -7,13 +6,13 @@ async function bootstrap() {
   
   // Enable CORS for your frontend
   app.enableCors({
-    origin: ['https://your-frontend-domain.onrender.com', 'http://localhost:5173'],
+    origin: true, // Allow all origins for testing (your friend can use any frontend URL)
     credentials: true,
   });
   
-  // --- IMPORTANT: Bind to 0.0.0.0 and use the PORT environment variable ---
+  // --- CRITICAL FIX: Bind to 0.0.0.0 and use PORT environment variable ---
   const port = process.env.PORT || 3000;
-  await app.listen(port, '0.0.0.0'); // This line is critical
-  console.log(`Application is running on: http://0.0.0.0:${port}`);
+  await app.listen(port, '0.0.0.0'); // This line is the key fix
+  console.log(`✅ Application is running on: http://0.0.0.0:${port}`);
 }
 bootstrap();
