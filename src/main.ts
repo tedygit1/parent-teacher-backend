@@ -5,14 +5,16 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'http://localhost:5173',
-      'https://parent-teacher-app-5cdn.vercel.app',
-    ],
-    credentials: true,
-  });
+ app.enableCors({
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'https://parent-teacher-app-5cdn.vercel.app',
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+  credentials: true,
+});
 
   const config = new DocumentBuilder()
     .setTitle('Parent Teacher API')
